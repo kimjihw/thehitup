@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deep Link Redirect</title>
+    <script>
+        function redirectToApp() {
+            var deepLink = "myapp://open"; // 🔹 앱에서 처리할 딥링크 URL
+
+            // 앱 실행 시도
+            window.location.href = deepLink;
+
+            // 앱이 설치되지 않았다면 일정 시간 후 앱스토어로 이동
+            setTimeout(function () {
+                window.location.href = "https://play.google.com/store/apps/details?id=your.app.package";
+            }, 2000); // 2초 후 앱스토어로 이동
+        }
+    </script>
+</head>
+<body onload="redirectToApp()">
+    <p>앱으로 이동 중입니다...</p>
+</body>
+</html>
