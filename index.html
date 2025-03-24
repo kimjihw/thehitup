@@ -6,14 +6,23 @@
     <title>Deep Link Redirect</title>
     <script>
         function redirectToApp() {
-            var deepLink = "myapp://open"; // 🔹 앱에서 처리할 딥링크 URL
+            var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+            var deepLink = "myapp://open"; // 앱에서 처리할 딥링크
+
+            // OS 확인
+            var isAndroid = /android/i.test(userAgent);
+            var isiOS = /iPad|iPhone|iPod/.test(userAgent) && !window.MSStream;
 
             // 앱 실행 시도
             window.location.href = deepLink;
 
             // 앱이 설치되지 않았다면 일정 시간 후 앱스토어로 이동
             setTimeout(function () {
-                window.location.href = "https://play.google.com/store/apps/details?id=your.app.package";
+                if (isAndroid) {
+                    window.location.href = "https://play.google.com/store/apps/details?id=thehitup_project"; // Android 앱스토어
+                } else if (isiOS) {
+                    window.location.href = "https://apps.apple.com/app/id1668324586"; // iOS 앱스토어
+                }
             }, 2000); // 2초 후 앱스토어로 이동
         }
     </script>
